@@ -17,7 +17,7 @@ Sistema de Ouvidoria
 - **Helpers**  
   Classes de utilidade, que podem ser usadas em qualquer local do código, pois a maioria de susas funções são estáticas.  
 
-  **Helpers Implementados:**
+  **Helpers Implementados:**  
     - [x] **FormatterHelper:** Responsável por formatação.  
       - **toUpperCase:** Função de alterar TODOS os valores de uma *array* (exceto chaves) para caixa alta.  
     - [x] **TranslatorHelper:** Responsável por traduções.  
