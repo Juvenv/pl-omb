@@ -17,11 +17,11 @@ Sistema de Ouvidoria
 - **Helpers**  
   Classes de utilidade, que podem ser usadas em qualquer local do código, pois a maioria de susas funções são estáticas.  
 
-  **Helpers Implementados:**  
-    - [x] **FormatterHelper:** Responsável por formatação.  
-      - **toUpperCase:** Função de alterar TODOS os valores de uma *array* (exceto chaves) para caixa alta.  
-    - [x] **TranslatorHelper:** Responsável por traduções.  
-      - **translateFields:** Função que traduz todos os campos marcados (entre chaves ("{}")) com base em uma array (geralmente vinda de uma requisição de formulário ou AJAX) de traduções de campos, contida em [app/lang/pt-br].  
+    - **Helpers Implementados:**  
+        - [x] **FormatterHelper:** Responsável por formatação.  
+            - **toUpperCase:** Função de alterar TODOS os valores de uma *array* (exceto chaves) para caixa alta.  
+        - [x] **TranslatorHelper:** Responsável por traduções.  
+            - **translateFields:** Função que traduz todos os campos marcados (entre chaves ("{}")) com base em uma array (geralmente vinda de uma requisição de formulário ou AJAX) de traduções de campos, contida em [app/lang/pt-br].  
 
 [app/lang/pt-br]: https://gitlab.com/Pliavi/ouvidoriav2/blob/master/app/lang/pt-br/formField.php
 [BaseValidator]: https://gitlab.com/Pliavi/ouvidoriav2/blob/master/app/validators/BaseValidator.php
