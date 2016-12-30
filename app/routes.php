@@ -11,8 +11,13 @@
 |
 */
 
-Route::get('/', function(){
-  return View::make('index');
-});
+// Busca arquivos de rotas dentro da pasta 'app/routes' e une aqui
+foreach ( File::allFiles(__DIR__.'/routes') as $partial ){
+    require $partial->getPathname();
+}
+
+// Qualquer rota dentro de admin precisa passar por autenticação
+Route::when('admin/*', 'auth.basic');
+
 Route::resource('status', 'StatusController');
 Route::resource('claimant', 'ClaimantController');

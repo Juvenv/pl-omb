@@ -5,7 +5,7 @@
         <strong>PL-OMB</strong>
       </a>
 
-      <a class="nav-item is-tab" href="#">
+      <a class="nav-item is-tab" href="url('user/profile')">
         Abrir Manifestação
       </a>
 
@@ -31,20 +31,6 @@
 export default {
   name: 'pl-header',
 
-  data(){
-    return {
-      // user: null
-      user:{
-        'name': 'Vitor Silvério',
-        'sector': {
-          'name': 'Ouvidoria'
-        },
-        'profile': {
-          // 'name': null
-          'name': 'Ouvidoria'
-        }
-      }
-    }
-  }
+  props: ['user']
 }
 </script>

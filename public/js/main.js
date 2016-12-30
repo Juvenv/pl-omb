@@ -9009,24 +9009,10 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = {
   name: 'pl-header',
 
-  data: function data() {
-    return {
-      // user: null
-      user: {
-        'name': 'Vitor Silvério',
-        'sector': {
-          'name': 'Ouvidoria'
-        },
-        'profile': {
-          // 'name': null
-          'name': 'Ouvidoria'
-        }
-      }
-    };
-  }
+  props: ['user']
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<nav class=\"nav has-shadow is-primary\">\n  <div class=\"nav-left\">\n    <a class=\"nav-item is-tab is-brand is-active\" href=\"#\">\n      <strong>PL-OMB</strong>\n    </a>\n\n    <a class=\"nav-item is-tab\" href=\"#\">\n      Abrir Manifestação\n    </a>\n\n    <a v-if=\"user\" class=\"nav-item is-tab\" href=\"#\">\n      Pesquisar Manifestação\n    </a>\n    <a v-else class=\"nav-item is-tab\" href=\"#\">\n      Consultar Andamento\n    </a>\n\n    <a v-if=\"user && user.profile.name === 'Ouvidoria' \" class=\"nav-item is-tab\" href=\"#\">\n      Relatórios\n    </a>\n  </div>\n\n  <div class=\"nav-right nav-menu\" v-if=\"user\">\n\n  </div>\n</nav>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<nav class=\"nav has-shadow is-primary\">\n  <div class=\"nav-left\">\n    <a class=\"nav-item is-tab is-brand is-active\" href=\"#\">\n      <strong>PL-OMB</strong>\n    </a>\n\n    <a class=\"nav-item is-tab\" href=\"url('user/profile')\">\n      Abrir Manifestação\n    </a>\n\n    <a v-if=\"user\" class=\"nav-item is-tab\" href=\"#\">\n      Pesquisar Manifestação\n    </a>\n    <a v-else class=\"nav-item is-tab\" href=\"#\">\n      Consultar Andamento\n    </a>\n\n    <a v-if=\"user && user.profile.name === 'Ouvidoria' \" class=\"nav-item is-tab\" href=\"#\">\n      Relatórios\n    </a>\n  </div>\n\n  <div class=\"nav-right nav-menu\" v-if=\"user\">\n\n  </div>\n</nav>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)

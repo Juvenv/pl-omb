@@ -9,7 +9,11 @@
 </head>
 <body>
   <div id="app">
-    <pl-header user="{{ Auth::user() }}" ></pl-header>
+    <pl-header :user='{{ $user }}'>
+      <pl-tab href='{{  }}'>
+
+      </pl-tab>
+    </pl-header>
 
     <section class="section">
       <div class="container is-fluid">
