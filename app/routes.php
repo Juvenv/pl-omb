@@ -11,5 +11,8 @@
 |
 */
 
+Route::get('/', function(){
+  return View::make('index');
+});
 Route::resource('status', 'StatusController');
 Route::resource('claimant', 'ClaimantController');

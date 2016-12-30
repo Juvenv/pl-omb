@@ -2,9 +2,28 @@ PL-OMB
 ==========
 Sistema de Ouvidoria
 ---------
+**Author:** Vitor "Pliavi" Silvério de Souza
 
 ### O que foi utilizado
 - Laravel 4.2
+    - Lavarel Elixir
+- Node NPM (Requisito)
+    - Gulp
+    - Vue 2
+        - Vueify
+    - Bulma
+
+### Instalação
+Após clonar o projeto, apenas execute os comandos:
+- Instalar dependências do Composer  
+  `composer install`
+- Instalar dependências do Node  
+  `npm install`
+- Auto compilação das tarefas do Gulp  
+  `gulp watch`
+- Servir o Laravel no Localhost:8000  
+  `php artisan serve`
+
 
 ### Comandos Artisan Personalizados
 - **validator:make `<name>`**  
