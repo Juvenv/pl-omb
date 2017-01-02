@@ -16754,6 +16754,10 @@ var _PlCreateManifestation = require('./pages/manifestation/PlCreateManifestatio
 
 var _PlCreateManifestation2 = _interopRequireDefault(_PlCreateManifestation);
 
+var _ = require('./pages/404.vue');
+
+var _2 = _interopRequireDefault(_);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // Node Modules
@@ -16770,7 +16774,10 @@ _vue2.default.use(_vueRouter2.default);
 var router = new _vueRouter2.default({
   linkActiveClass: 'is-active',
 
-  routes: [{ path: '/manifestation/create', component: _PlCreateManifestation2.default }]
+  routes: [{
+    path: '/manifestation/create',
+    component: _PlCreateManifestation2.default
+  }, { path: '*', component: _2.default }]
 });
 
 // Vue Application
@@ -16790,7 +16797,32 @@ new _vue2.default({
   router: router
 });
 
-},{"./components/PlGeoAutocomplete.vue":33,"./components/header/PlHeader.vue":34,"./pages/manifestation/PlCreateManifestation.vue":37,"axios":1,"vue":31,"vue-axios":28,"vue-router":30}],37:[function(require,module,exports){
+},{"./components/PlGeoAutocomplete.vue":33,"./components/header/PlHeader.vue":34,"./pages/404.vue":37,"./pages/manifestation/PlCreateManifestation.vue":38,"axios":1,"vue":31,"vue-axios":28,"vue-router":30}],37:[function(require,module,exports){
+var __vueify_insert__ = require("vueify/lib/insert-css")
+var __vueify_style__ = __vueify_insert__.insert("\n\n")
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {};
+if (module.exports.__esModule) module.exports = module.exports.default
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div>\n  <h1 class=\"title\">PL-OMB - 404</h1>\n  <h2 class=\"subtitle\">Página não encontrada</h2>\n</div>\n"
+if (module.hot) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.dispose(function () {
+    __vueify_insert__.cache["\n\n"] = false
+    document.head.removeChild(__vueify_style__)
+  })
+  if (!module.hot.data) {
+    hotAPI.createRecord("_v-58debcee", module.exports)
+  } else {
+    hotAPI.update("_v-58debcee", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+  }
+})()}
+},{"vue":31,"vue-hot-reload-api":29,"vueify/lib/insert-css":32}],38:[function(require,module,exports){
 var __vueify_insert__ = require("vueify/lib/insert-css")
 var __vueify_style__ = __vueify_insert__.insert("\n\n")
 'use strict';
@@ -16814,7 +16846,9 @@ exports.default = {
       return (0, _moment2.default)(new Date()).format('HH:MM');
     }
   },
+
   mounted: function mounted() {
+    // Atribuindo data ao input, o tipo date não consegue receber via attributo value diretamente no HTML
     this.$refs.date.value = this.date;
   }
 };

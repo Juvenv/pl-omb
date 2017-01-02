@@ -30,7 +30,9 @@
         return moment(new Date()).format('HH:MM')
       }
     },
+
     mounted() {
+      // Atribuindo data ao input, o tipo date não consegue receber via attributo value diretamente no HTML
       this.$refs.date.value = this.date;
     }
   }

@@ -12,14 +12,19 @@ import PlGeoAutocomplete from './components/PlGeoAutocomplete.vue'
 
 // Route Components
 import PlCreateManifestation from './pages/manifestation/PlCreateManifestation.vue'
+import Pl404 from './pages/404.vue'
 
 // Vue Router
 const router = new VueRouter({
   linkActiveClass: 'is-active',
 
   routes: [
-    { path: '/manifestation/create', component: PlCreateManifestation }
-  ]
+    {
+      path: '/manifestation/create',
+      component: PlCreateManifestation
+    },
+    { path: '*', component: Pl404 }
+  ],
 })
 
 // Vue Application
