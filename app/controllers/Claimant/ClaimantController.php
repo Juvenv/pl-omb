@@ -2,34 +2,36 @@
 
 class ClaimantController extends \BaseController {
 
-	public function __construct(){
-		$this->validator = new ClaimantValidator($this);
-	}
+  public function store(){
+    try {
+      $validatedData = $this->validator->validate();
 
-	public function index(){
-		return Claimant::all();
-	}
+      // TODO: Verificar a exceção do uso do fill
+      $this->model->fill($validatedData);
 
-	public function create(){}
+      if($this->hasRequestData('individual'))
+      {
+        $individual = new Individual;
+        $individual->fill($this->getRequestData('individual'));
+        $this->model->individual()->associate($individual);
+      }
+      else if($this->hasRequestData('company'))
+      {
+        $company = new Company;
+        $company->fill($this->getRequestData('company'));
+        $this->model->company()->associate($company);
+      }
+      else if (!isset($this->getRequestData('claimant')['anonymous']))
+      {
+        throw new Exception('É necessário ser pessoa física, jurídica caso não seja anônimo');
+      }
 
-		public function store(){
-			$message = [];
-			try{
-				$this->validator->store();
-				$claimant = new Claimant;
-
-
-
-
-				// $claimant->save();
-				// return $claimant;
-				return $this->getRequestData('answer');
-			}catch (ValidationFailException $e){
-				return $this->validator->validationFails;
-			}catch (Exception $e) {
-				return Response::make(['error' =>  'Não foi possível cadastrar o Status', 'cause' => $e->getMessage()]);
-			}
-		}
+      $this->model->save();
+      return $this->model;
+    } catch (Exception $e) {
+      return $this->throwException($e);
+    }
+  }
 
 
 		/**

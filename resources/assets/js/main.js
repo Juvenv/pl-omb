@@ -31,11 +31,6 @@ const router = new VueRouter({
 new Vue({
   el: '#app',
 
-  data: {
-    title: "Titulo",
-    user: {}
-  },
-
   components: {
     PlHeader, PlGeoAutocomplete
   },

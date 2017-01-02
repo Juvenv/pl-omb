@@ -11,18 +11,28 @@ Class BaseValidator {
     $this->controller = $controller;
   }
 
-  protected function validate($rules){
+  /**
+  *
+  **/
+  public function validate(){
+    $trace = debug_backtrace();
+    $caller = $trace[1];
+    $action = $caller["function"];
+
     $data = $this->controller->getRequestData($this->filter);
-    $this->validator = Validator::make($data, $rules);
 
-    if ($this->validator->fails()){
+    if(method_exists($this, $action)){
+      $this->validator = Validator::make($data, $this->$action());
 
-      $fails = TranslatorHelper::translateFields($this->validator->messages()->getMessages());
-      $this->validationFails['error'] = "As seguintes validações em $this->filter falharam:";
-      $this->validationFails['where'] = "{ $this->filter }";
-      $this->validationFails['fails'] = $fails;
+      if ($this->validator->fails()){
+        $this->validationFails = $this->validator->messages()->getMessages();;
 
-      throw new ValidationFailException("Falha de Validação");
+        throw new ValidationFailException($this->filter, $this->validationFails);
+      }
+    } else {
+      $data['validated'] = false;
     }
+    // print(json_encode($data));
+    return $data;
   }
 }

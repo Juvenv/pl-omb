@@ -8,16 +8,16 @@ Class FormatterHelper {
   * @param $value: array ou valor que será convertido
   **/
   public static function toUpperCase($value){
-  	$result = [];
+    $result = [];
 
-  	foreach ($value as $key => $value) {
-  		if (is_array($value)) { // Caso seja uma array dentro, chama recursivamente
-  			$result[$key] = self::toUpperCase($value);
-  		}else{
-  			$result[$key] = mb_strtoupper($value, 'UTF-8');
-  		}
-  	}
+    foreach ($value as $key => $value) {
+      if (is_array($value)) { // Caso haja uma array dentro, chama recursivamente
+        $result[$key] = self::toUpperCase($value);
+      }else{
+        $result[$key] = mb_strtoupper($value, 'UTF-8');
+      }
+    }
 
-  	return $result;
+    return $result;
   }
 }
