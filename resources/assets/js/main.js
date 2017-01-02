@@ -1,15 +1,40 @@
+// Node Modules
 import Vue from 'vue'
+import axios from 'axios'
+import VueAxios from 'vue-axios'
+import VueRouter from 'vue-router'
+Vue.use(VueAxios, axios)
+Vue.use(VueRouter)
 
-import PlHeader from './components/PlHeader.vue'
+// Components
+import PlHeader from './components/header/PlHeader.vue'
+import PlGeoAutocomplete from './components/PlGeoAutocomplete.vue'
 
+// Route Components
+import PlCreateManifestation from './pages/manifestation/PlCreateManifestation.vue'
+
+// Vue Router
+const router = new VueRouter({
+  linkActiveClass: 'is-active',
+
+  routes: [
+    { path: '/manifestation/create', component: PlCreateManifestation }
+  ]
+})
+
+// Vue Application
 new Vue({
   el: '#app',
 
   data: {
-    title: "Titulo"
+    title: "Titulo",
+    user: {}
   },
 
   components: {
-    PlHeader
-  }
+    PlHeader, PlGeoAutocomplete
+  },
+
+  // Call da constante do VueRouter
+  router
 })

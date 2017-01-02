@@ -19,5 +19,3 @@ foreach ( File::allFiles(__DIR__.'/routes') as $partial ){
 // Qualquer rota dentro de admin precisa passar por autenticação
 Route::when('admin/*', 'auth.basic');
 
-Route::resource('status', 'StatusController');
-Route::resource('claimant', 'ClaimantController');
