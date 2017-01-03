@@ -1,11 +1,3 @@
-* {
-  font-family: 'Roboto', sans-serif;
-}
-
-.is-brand strong {
-  font-size: 1.5REM;
-}
-
 /*! bulma.io v0.2.3 | MIT License | github.com/jgthms/bulma */
 @-webkit-keyframes spinAround {
   from {
@@ -6250,6 +6242,18 @@ a.panel-block:hover {
 
 .footer a:not(.icon):hover, .footer a:visited:not(.icon):hover {
   border-bottom-color: #00d1b2;
+}
+
+html {
+  background-color: white;
+}
+
+* {
+  font-family: 'Roboto', sans-serif;
+}
+
+.is-brand strong {
+  font-size: 1.5REM;
 }
 
 /*# sourceMappingURL=styles.css.map */

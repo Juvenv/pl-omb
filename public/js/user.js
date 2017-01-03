@@ -16724,75 +16724,6 @@ if (module.hot) {(function () {  module.hot.accept()
   }
 })()}
 },{"vue":31,"vue-hot-reload-api":29}],36:[function(require,module,exports){
-'use strict';
-
-var _vue = require('vue');
-
-var _vue2 = _interopRequireDefault(_vue);
-
-var _axios = require('axios');
-
-var _axios2 = _interopRequireDefault(_axios);
-
-var _vueAxios = require('vue-axios');
-
-var _vueAxios2 = _interopRequireDefault(_vueAxios);
-
-var _vueRouter = require('vue-router');
-
-var _vueRouter2 = _interopRequireDefault(_vueRouter);
-
-var _PlHeader = require('./components/header/PlHeader.vue');
-
-var _PlHeader2 = _interopRequireDefault(_PlHeader);
-
-var _PlGeoAutocomplete = require('./components/PlGeoAutocomplete.vue');
-
-var _PlGeoAutocomplete2 = _interopRequireDefault(_PlGeoAutocomplete);
-
-var _PlCreateManifestation = require('./pages/manifestation/PlCreateManifestation.vue');
-
-var _PlCreateManifestation2 = _interopRequireDefault(_PlCreateManifestation);
-
-var _ = require('./pages/404.vue');
-
-var _2 = _interopRequireDefault(_);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-// Node Modules
-_vue2.default.use(_vueAxios2.default, _axios2.default);
-_vue2.default.use(_vueRouter2.default);
-
-// Components
-
-
-// Route Components
-
-
-// Vue Router
-var router = new _vueRouter2.default({
-  linkActiveClass: 'is-active',
-
-  routes: [{
-    path: '/manifestation/create',
-    component: _PlCreateManifestation2.default
-  }, { path: '*', component: _2.default }]
-});
-
-// Vue Application
-new _vue2.default({
-  el: '#app',
-
-  components: {
-    PlHeader: _PlHeader2.default, PlGeoAutocomplete: _PlGeoAutocomplete2.default
-  },
-
-  // Call da constante do VueRouter
-  router: router
-});
-
-},{"./components/PlGeoAutocomplete.vue":33,"./components/header/PlHeader.vue":34,"./pages/404.vue":37,"./pages/manifestation/PlCreateManifestation.vue":38,"axios":1,"vue":31,"vue-axios":28,"vue-router":30}],37:[function(require,module,exports){
 var __vueify_insert__ = require("vueify/lib/insert-css")
 var __vueify_style__ = __vueify_insert__.insert("\n\n")
 "use strict";
@@ -16815,6 +16746,46 @@ if (module.hot) {(function () {  module.hot.accept()
     hotAPI.createRecord("_v-58debcee", module.exports)
   } else {
     hotAPI.update("_v-58debcee", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+  }
+})()}
+},{"vue":31,"vue-hot-reload-api":29,"vueify/lib/insert-css":32}],37:[function(require,module,exports){
+var __vueify_insert__ = require("vueify/lib/insert-css")
+var __vueify_style__ = __vueify_insert__.insert("\n.bread-crumb {\n  margin-bottom: 20px;\n}\n.child-view {\n  position: relative;\n  width: 100%;\n  -webkit-transition: all .5s ease;\n  transition: all .5s ease;/*cubic-bezier(.55,0,.1,1);*/\n}\n.slide-left-enter, .slide-right-leave-active, .slide-left{\n  opacity: 0;\n  -webkit-transform: translate(30px, 0);\n  transform: translate(30px, 0);\n  height: 0;\n\n}\n.slide-left-leave-active, .slide-right-enter {\n  opacity: 0;\n  -webkit-transform: translate(-30px, 0);\n  transform: translate(-30px, 0);\n  height: 0;\n\n}\n")
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {
+  data: function data() {
+    return {
+      transitionName: 'slide-left'
+    };
+  },
+
+  // dynamically set transition based on route change
+  watch: {
+    '$route': function $route(to, from) {
+      var toDepth = to.path.split('/').length;
+      var fromDepth = from.path.split('/').length;
+      this.transitionName = toDepth < fromDepth ? 'slide-right' : 'slide-left';
+    }
+  }
+};
+if (module.exports.__esModule) module.exports = module.exports.default
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<form>\n  <div class=\"bread-crumb nav\">\n    <router-link class=\"button is-primary tag\" :to=\"{ name: 'manifestation.create' }\">\n      Data e Local\n    </router-link>\n    <span class=\"icon\">\n      <i class=\"fa fa-angle-double-right\"></i>\n    </span>\n    <router-link class=\"button is-primary tag\" :to=\"{ name: 'manifestation.create.fact' }\">\n      Informações\n    </router-link>\n  </div>\n\n  <div style=\"position: relative; top: 0;left:0\">\n    <transition :name=\"transitionName\">\n      <router-view class=\"child-view\"></router-view>\n    </transition>\n  </div>\n\n  <nav class=\"level\">\n    <div class=\"level-left\"></div>\n    <div class=\"level-right\">\n      <div class=\"level-item\">\n        <button class=\"button is-primary\" type=\"submit\">Enviar</button>\n      </div>\n    </div>\n  </nav>\n</form>\n"
+if (module.hot) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.dispose(function () {
+    __vueify_insert__.cache["\n.bread-crumb {\n  margin-bottom: 20px;\n}\n.child-view {\n  position: relative;\n  width: 100%;\n  -webkit-transition: all .5s ease;\n  transition: all .5s ease;/*cubic-bezier(.55,0,.1,1);*/\n}\n.slide-left-enter, .slide-right-leave-active, .slide-left{\n  opacity: 0;\n  -webkit-transform: translate(30px, 0);\n  transform: translate(30px, 0);\n  height: 0;\n\n}\n.slide-left-leave-active, .slide-right-enter {\n  opacity: 0;\n  -webkit-transform: translate(-30px, 0);\n  transform: translate(-30px, 0);\n  height: 0;\n\n}\n"] = false
+    document.head.removeChild(__vueify_style__)
+  })
+  if (!module.hot.data) {
+    hotAPI.createRecord("_v-0fa2d768", module.exports)
+  } else {
+    hotAPI.update("_v-0fa2d768", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
 },{"vue":31,"vue-hot-reload-api":29,"vueify/lib/insert-css":32}],38:[function(require,module,exports){
@@ -16848,7 +16819,7 @@ exports.default = {
   }
 };
 if (module.exports.__esModule) module.exports = module.exports.default
-;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<form class=\"columns\">\n\n  <div class=\"column\">\n    <label class=\"label\">Data: </label>\n    <p class=\"control\">\n      <input class=\"input\" ref=\"date\" type=\"date\">\n    </p>\n  </div>\n\n  <div class=\"column\">\n    <label class=\"label\">Hora: </label>\n    <p class=\"control\">\n      <input class=\"input\" type=\"time\" :value=\"hour\">\n    </p>\n  </div>\n\n</form>\n"
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"columns\">\n\n    <div class=\"column notification is-1 is-primary has-text-centered\">\n      <span class=\"icon is-large\">\n        <i class=\"fa fa-clock-o\" aria-hidden=\"true\"></i>\n      </span>\n    </div>\n\n    <div class=\"column\">\n      <label class=\"label\">Data: </label>\n      <p class=\"control\">\n        <input class=\"input\" ref=\"date\" type=\"date\">\n      </p>\n    </div>\n\n    <div class=\"column\">\n      <label class=\"label\">Hora: </label>\n      <p class=\"control\">\n        <input class=\"input\" type=\"time\" :value=\"hour\">\n      </p>\n    </div>\n\n  </div>\n"
 if (module.hot) {(function () {  module.hot.accept()
   var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -16858,11 +16829,200 @@ if (module.hot) {(function () {  module.hot.accept()
     document.head.removeChild(__vueify_style__)
   })
   if (!module.hot.data) {
-    hotAPI.createRecord("_v-385bf1e9", module.exports)
+    hotAPI.createRecord("_v-67d9a519", module.exports)
   } else {
-    hotAPI.update("_v-385bf1e9", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+    hotAPI.update("_v-67d9a519", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
   }
 })()}
-},{"moment":26,"vue":31,"vue-hot-reload-api":29,"vueify/lib/insert-css":32}]},{},[36]);
+},{"moment":26,"vue":31,"vue-hot-reload-api":29,"vueify/lib/insert-css":32}],39:[function(require,module,exports){
+'use strict';
 
-//# sourceMappingURL=main.js.map
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _PlDate = require('./PlDate.vue');
+
+var _PlDate2 = _interopRequireDefault(_PlDate);
+
+var _PlLocal = require('./PlLocal.vue');
+
+var _PlLocal2 = _interopRequireDefault(_PlLocal);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+  components: {
+    PlDate: _PlDate2.default, PlLocal: _PlLocal2.default
+  }
+};
+if (module.exports.__esModule) module.exports = module.exports.default
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div>\n  <pl-date></pl-date>\n  <pl-local></pl-local>\n</div>\n"
+if (module.hot) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  if (!module.hot.data) {
+    hotAPI.createRecord("_v-21f07a82", module.exports)
+  } else {
+    hotAPI.update("_v-21f07a82", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+  }
+})()}
+},{"./PlDate.vue":38,"./PlLocal.vue":41,"vue":31,"vue-hot-reload-api":29}],40:[function(require,module,exports){
+var __vueify_insert__ = require("vueify/lib/insert-css")
+var __vueify_style__ = __vueify_insert__.insert("\n\n")
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {};
+if (module.exports.__esModule) module.exports = module.exports.default
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div>\n    <div class=\"column notification is-1 is-primary has-text-centered\">\n      <span class=\"icon is-large\">\n        <i class=\"fa fa-clock-o\" aria-hidden=\"true\"></i>\n      </span>\n    </div>\n  <textarea name=\"\" id=\"\" cols=\"30\" rows=\"10\" required=\"\"></textarea>\n</div>\n"
+if (module.hot) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.dispose(function () {
+    __vueify_insert__.cache["\n\n"] = false
+    document.head.removeChild(__vueify_style__)
+  })
+  if (!module.hot.data) {
+    hotAPI.createRecord("_v-07999a19", module.exports)
+  } else {
+    hotAPI.update("_v-07999a19", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+  }
+})()}
+},{"vue":31,"vue-hot-reload-api":29,"vueify/lib/insert-css":32}],41:[function(require,module,exports){
+var __vueify_insert__ = require("vueify/lib/insert-css")
+var __vueify_style__ = __vueify_insert__.insert("\n\n")
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = {};
+if (module.exports.__esModule) module.exports = module.exports.default
+;(typeof module.exports === "function"? module.exports.options: module.exports).template = "\n<div class=\"columns\">\n\n    <div class=\"column notification is-1 is-primary has-text-centered\">\n      <span class=\"icon is-large\">\n        <i class=\"fa fa-compass\" aria-hidden=\"true\"></i>\n      </span>\n    </div>\n\n    <div class=\"column\">\n      <label class=\"label\">Local: </label>\n      <p class=\"control\">\n        <input class=\"input\" ref=\"date\" type=\"date\">\n      </p>\n    </div>\n\n    <div class=\"column\">\n      <label class=\"label\">Outra coisa: </label>\n      <p class=\"control\">\n        <input class=\"input\" type=\"time\" :value=\"hour\">\n      </p>\n    </div>\n\n  </div>\n"
+if (module.hot) {(function () {  module.hot.accept()
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.dispose(function () {
+    __vueify_insert__.cache["\n\n"] = false
+    document.head.removeChild(__vueify_style__)
+  })
+  if (!module.hot.data) {
+    hotAPI.createRecord("_v-5cfa9510", module.exports)
+  } else {
+    hotAPI.update("_v-5cfa9510", module.exports, (typeof module.exports === "function" ? module.exports.options : module.exports).template)
+  }
+})()}
+},{"vue":31,"vue-hot-reload-api":29,"vueify/lib/insert-css":32}],42:[function(require,module,exports){
+'use strict';
+
+var _vue = require('vue');
+
+var _vue2 = _interopRequireDefault(_vue);
+
+var _axios = require('axios');
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _vueAxios = require('vue-axios');
+
+var _vueAxios2 = _interopRequireDefault(_vueAxios);
+
+var _vueRouter = require('vue-router');
+
+var _vueRouter2 = _interopRequireDefault(_vueRouter);
+
+var _PlHeader = require('./components/header/PlHeader.vue');
+
+var _PlHeader2 = _interopRequireDefault(_PlHeader);
+
+var _PlGeoAutocomplete = require('./components/PlGeoAutocomplete.vue');
+
+var _PlGeoAutocomplete2 = _interopRequireDefault(_PlGeoAutocomplete);
+
+var _PlMain = require('./pages/manifestation/form/PlMain.vue');
+
+var _PlMain2 = _interopRequireDefault(_PlMain);
+
+var _PlDateLocal = require('./pages/manifestation/form/parts/PlDateLocal.vue');
+
+var _PlDateLocal2 = _interopRequireDefault(_PlDateLocal);
+
+var _PlInfo = require('./pages/manifestation/form/parts/PlInfo.vue');
+
+var _PlInfo2 = _interopRequireDefault(_PlInfo);
+
+var _ = require('./pages/404.vue');
+
+var _2 = _interopRequireDefault(_);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// Node Modules
+_vue2.default.use(_vueAxios2.default, _axios2.default);
+_vue2.default.use(_vueRouter2.default);
+
+// Components
+
+
+// Route Components
+
+
+// Vue Router
+var router = new _vueRouter2.default({
+  linkActiveClass: 'is-active',
+
+  routes: [{
+    name: 'home',
+    path: '/',
+    component: _2.default
+  }, {
+    name: 'manifestation.search',
+    path: '/manifestacao/buscar',
+    component: _2.default
+  }, {
+    name: 'admin.reports',
+    path: '/admin/relatorios',
+    component: _2.default
+  }, {
+    path: '/manifestacao/nova',
+    component: _PlMain2.default,
+    children: [{
+      name: 'manifestation.create',
+      path: '',
+      component: _PlDateLocal2.default
+    }, {
+      name: 'manifestation.create.fact',
+      path: 'fato',
+      component: _PlInfo2.default
+    }]
+  }, {
+    path: '*', component: _2.default
+  }]
+});
+
+// Vue Application
+new _vue2.default({
+  el: '#app',
+
+  data: {
+    title: "Titulo",
+    user: {}
+  },
+
+  components: {
+    PlHeader: _PlHeader2.default, PlGeoAutocomplete: _PlGeoAutocomplete2.default
+  },
+
+  // Call da constante do VueRouter
+  router: router
+});
+
+},{"./components/PlGeoAutocomplete.vue":33,"./components/header/PlHeader.vue":34,"./pages/404.vue":36,"./pages/manifestation/form/PlMain.vue":37,"./pages/manifestation/form/parts/PlDateLocal.vue":39,"./pages/manifestation/form/parts/PlInfo.vue":40,"axios":1,"vue":31,"vue-axios":28,"vue-router":30}]},{},[42]);
+
+//# sourceMappingURL=user.js.map

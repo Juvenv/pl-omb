@@ -14,9 +14,9 @@ const vueify = require('laravel-elixir-vueify');
  elixir((mix) => {
   // mix.styles(['../../../node_modules/bulma/bulma.sass'], 'public/css/styles.css');
   mix.sass([
-    'app.sass',
-    '../../../node_modules/bulma/bulma.sass'
+    '../../../node_modules/bulma/bulma.sass',
+    'app.sass'
   ], 'public/css/styles.css');
 
-  mix.browserify('main.js');
+  mix.browserify('user.js');
 });
