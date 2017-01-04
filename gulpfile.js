@@ -12,11 +12,10 @@ const vueify = require('laravel-elixir-vueify');
  */
 
  elixir((mix) => {
-  // mix.styles(['../../../node_modules/bulma/bulma.sass'], 'public/css/styles.css');
   mix.sass([
     '../../../node_modules/bulma/bulma.sass',
-    'app.sass'
-  ], 'public/css/styles.css');
+    '../sass/app.sass'
+  ], 'assets/css/styles.css');
 
-  mix.browserify('user.js');
+  mix.browserify('../js/user.js', 'assets/js/user.js');
 });

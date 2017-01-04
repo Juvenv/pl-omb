@@ -7,7 +7,7 @@ Vue.use(VueAxios, axios)
 Vue.use(VueRouter)
 
 // Components
-import PlHeader from './components/header/PlHeader.vue'
+import PlNav from './components/nav/PlNav.vue'
 import PlGeoAutocomplete from './components/PlGeoAutocomplete.vue'
 
 // Route Components
@@ -68,7 +68,7 @@ new Vue({
   },
 
   components: {
-    PlHeader, PlGeoAutocomplete
+    PlNav, PlGeoAutocomplete
   },
 
   // Call da constante do VueRouter

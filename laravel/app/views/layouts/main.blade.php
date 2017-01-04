@@ -11,7 +11,7 @@
 </head>
 <body>
   <div id="app">
-    <pl-header></pl-header>
+    <pl-nav></pl-nav>
 
     <section class="section">
       <div class="container is-fluid">
