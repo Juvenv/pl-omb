@@ -2,9 +2,10 @@
 
 Class BaseValidator {
 
+  protected $prependedFilter;
   protected $filter;
-  protected $validator;
   protected $controller;
+  public $validator;
   public $validationFails;
 
   public function __construct(BaseController $controller){
@@ -15,6 +16,7 @@ Class BaseValidator {
   *
   **/
   public function validate(){
+    // TODO: Refatorar e diminuir
     $trace = debug_backtrace();
     $caller = $trace[1];
     $action = $caller["function"];
@@ -36,8 +38,30 @@ Class BaseValidator {
     return $data;
   }
 
+  public function getValidator(){
+    return $this->validator;
+  }
+
   public function setFilter($filter)
   {
     $this->filter = $filter;
+  }
+
+  public function getFilter()
+  {
+    return $this->filter;
+  }
+
+  public function prependFilter($parents)
+  {
+    if(!empty($parents)){
+      $this->prependedFilter = $parents.'.';
+      $this->filter = $parents . '.' . $this->filter;
+    }
+    return $this->filter;
+  }
+
+  public function getPrependedFilter(){
+    return $this->prependedFilter;
   }
 }

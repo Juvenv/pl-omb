@@ -18,7 +18,7 @@ class MakeValidator extends Command {
 	 *
 	 * @var string
 	 */
-	protected $description = 'Command description.';
+	protected $description = 'Cria um novo validador com base no nome do modelo';
 
 	/**
 	 * Create a new command instance.
@@ -37,8 +37,9 @@ class MakeValidator extends Command {
 	 */
 	public function fire()
 	{
-		$filter = ucfirst($this->argument('name'));
-		$name = $filter.'Validator';
+		$modelName = ucfirst($this->argument('name'));
+    $filter = strtolower($modelName);
+		$name = $modelName.'Validator';
 
 		$myFile = __DIR__."/../validators/$name.php";
 		$file = __DIR__."/stubs/validator.php";
@@ -61,18 +62,6 @@ class MakeValidator extends Command {
 	{
 		return array(
 			array('name', InputArgument::REQUIRED, 'An example argument.'),
-		);
-	}
-
-	/**
-	 * Get the console command options.
-	 *
-	 * @return array
-	 */
-	protected function getOptions()
-	{
-		return array(
-			array('name', null, InputOption::VALUE_OPTIONAL, 'An example option.', null),
 		);
 	}
 

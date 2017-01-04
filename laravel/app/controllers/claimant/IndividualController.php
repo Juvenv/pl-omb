@@ -11,6 +11,7 @@ class IndividualController extends \BaseController {
 	{
     $validatedData = $this->validator->validate();
 
+
     $this->model = Individual::firstOrNew(['cpf' => $validatedData['cpf']]);
 
     // Confere a já existencia da pessoa física:
@@ -21,11 +22,13 @@ class IndividualController extends \BaseController {
       $lastClaimant->fill($claimant->toArray()); // Altera os dados e mantém o id
       $claimant = $lastClaimant; // Coloca o antigo na variável a ser cadastrada no banco
     }
+    $claimant->save();
 
     $this->model->fill($validatedData);
     $this->model->claimant()->associate($claimant);
+    $this->model->push();
 
-    return $this->model;
+    return $claimant;
 	}
 
 }

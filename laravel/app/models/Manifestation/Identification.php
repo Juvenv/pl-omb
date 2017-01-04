@@ -1,8 +1,8 @@
 <?php
 
-class Status extends Eloquent{
+class Identification extends Eloquent{
 
-	protected $table = 'Status';
+	protected $table = 'Identifications';
 	protected $hidden = ['active'];
 	protected $fillable = ['name'];
 	public $timestamps = false;

@@ -3,20 +3,36 @@
 class BaseController extends Controller {
 
   protected $model;
+  protected $modelName;
 
   public function __construct(){
     // Main Name das classes filhas (Modelos e Validadores)
     // Ex: Com ClaimantController, será instanciado o modelo Claimant e o validador ClaimantValidator
     $name = str_replace("Controller", "", get_class($this));
 
-    // Seta o modelo (OBRIGATORIAMENTE)
+    // Seta o modelo e seu nome (OBRIGATORIAMENTE)
     $this->model = new $name;
+    $this->modelName = $name;
 
     // Seta a classe validadora, caso exista
     $validatorClass = "{$name}Validator";
     if(class_exists($validatorClass)){
       $this->validator = new $validatorClass($this);
+    } else {
+      throw new Exception("Classe validadora $validatorClass não foi encontrada.");
     }
+
+    // Seta o filtro de acordo com a valor passado no construtor do pai que o chamou
+    $trace = debug_backtrace();
+    $caller = $trace[1]['object'];
+    // print_r(strtolower(str_replace('Controller', '' ,$caller['object']->name)));
+    // exit;
+
+    // FIXME: Verificar sobre a utilização correta dos filtros aqui!
+    try{
+      $lastFilter = $caller->validator->getFilter();
+      $this->validator->prependFilter($lastFilter);
+    }catch(Exception $ignored){}
 
 	}
 
@@ -38,7 +54,7 @@ class BaseController extends Controller {
 	**/
 	public function getRequestData($filter = null)
 	{
-		$formattedValues = [];
+  	$formattedValues = [];
 		$requests = [];
 
 		if($filter !== null){
@@ -62,7 +78,7 @@ class BaseController extends Controller {
 		if(!empty($requests)){
 			$formattedValues = FormatterHelper::toUpperCase($requests);
 		}else{
-			throw new OutOfBoundsException("Chave '$filter' não encontrada na lista (array) de dados");
+			throw new OutOfBoundsException("Chave '$filter' não encontrada na lista (array) de dados de " . $this->modelName);
 		}
 
 		return $formattedValues;

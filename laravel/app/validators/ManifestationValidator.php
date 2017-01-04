@@ -1,7 +1,7 @@
 <?php
-Class DummyClass Extends BaseValidator {
+Class ManifestationValidator Extends BaseValidator {
 
-  protected $filter = "DummyFilter";
+  protected $filter = "manifestation";
 
   public function store(){
     // $rules = [ 'field' => 'rules' ];
