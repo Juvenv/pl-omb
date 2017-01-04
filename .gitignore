@@ -1,7 +1,7 @@
 /assets
 /node_modules
 /bootstrap/compiled.php
-/laravel/vendor
+/vendor
 composer.phar
 composer.lock
 .env.*.php
