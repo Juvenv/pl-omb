@@ -11,7 +11,6 @@ class IndividualController extends \BaseController {
 	{
     $validatedData = $this->validator->validate();
 
-
     $this->model = Individual::firstOrNew(['cpf' => $validatedData['cpf']]);
 
     // Confere a já existencia da pessoa física:

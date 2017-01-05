@@ -4,16 +4,13 @@ class ManifestationController extends \BaseController {
 
 	public function store() {
     // try {
+      // $requestData = $this->reques
       $validatedData = $this->validator->validate();
 
       $claimantController = new ClaimantController();
-      $claimantId = $claimantController->store();
-      $claimant = Claimant::findOrFail($claimantId);
+      $claimant = $claimantController->store();
 
       $this->model->fill($validatedData);
-
-      dd($this->model->description);
-
 
       $this->model->claimant()->associate($claimant);
       $this->model->status()->associate(Status::find(1));
@@ -21,7 +18,8 @@ class ManifestationController extends \BaseController {
       $this->model->identification()->associate(Identification::find(1));
       $this->model->answer()->associate(Answer::find(1));
 
-      $this->model->password = substr(hexdec(time()), 0, 4);
+      // Senha numérica de 4 dígitos
+      $this->model->password = substr(time(), 0, 4);
 
       $this->model->save();
 

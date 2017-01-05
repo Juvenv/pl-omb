@@ -51,10 +51,8 @@ class ClaimantController extends \BaseController {
         }
       }
 
-      // Devolve o id do contribuinte para que possa ser utilizado no controller da Manifestação
-      // NOTE: O retorno estava dando response e não modelo, se houver alguma forma de retornar o modelo
-      //       seria uma melhor opção e possívelmente menos custoso, pois é uma pesquisa ao banco a menos
-      return $this->model->id;
+      // Devolve o modelo do contribuinte para que possa ser utilizado no controller da Manifestação
+      return $this->model;
     } catch (Exception $e) {
       $this->model->delete();
       return $this->throwException($e);

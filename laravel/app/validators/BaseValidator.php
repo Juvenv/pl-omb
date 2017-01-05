@@ -13,16 +13,37 @@ Class BaseValidator {
   }
 
   /**
-  *
+  * Verifica a função que chamou a validação e executa o validador da função sobre o modelo
+  * @return Array() | ValidationFailException : Dados validados ou lança uma exceção
   **/
   public function validate(){
-    // TODO: Refatorar e diminuir
-    $trace = debug_backtrace();
-    $caller = $trace[1];
-    $action = $caller["function"];
+    $action = debug_backtrace()[1]["function"];
 
     $data = $this->controller->getRequestData($this->filter);
 
+    // Verifica se o método a ser validado existe (store, update, etc)
+    if(method_exists($this, $action)){
+      $this->validator = Validator::make($data, $this->$action());
+
+      if ($this->validator->fails()){
+        $this->validationFails = $this->validator->messages()->getMessages();
+
+        throw new ValidationFailException($this->filter, $this->validationFails);
+      }
+    } else {
+      // Caso não exista, uma flag de validação é lançada no RESPONSE como false
+      $data['validated'] = false;
+    }
+
+    return $data;
+  }
+
+  public function validateFromData($data){
+    $action = debug_backtrace()[1]["function"];
+
+    // $data = $this->controller->getRequestData($this->filter);
+
+    // Verifica se o método a ser validado existe (store, update, etc)
     if(method_exists($this, $action)){
       $this->validator = Validator::make($data, $this->$action());
 
@@ -32,6 +53,7 @@ Class BaseValidator {
         throw new ValidationFailException($this->filter, $this->validationFails);
       }
     } else {
+      // Caso não exista, uma flag de validação é lançada no RESPONSE como false
       $data['validated'] = false;
     }
 

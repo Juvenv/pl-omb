@@ -1,7 +1,7 @@
 <?php
-Class DummyClass Extends BaseValidator {
+Class SubjectValidator Extends BaseValidator {
 
-  protected $filter = "DummyFilter";
+  protected $filter = "subject";
 
   public function store(){
     $rules = [ '' => '' ];

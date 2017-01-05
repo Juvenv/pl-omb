@@ -14,7 +14,7 @@ class BaseController extends Controller {
     $this->model = new $name;
     $this->modelName = $name;
 
-    // Seta a classe validadora, caso exista
+    // Seta a classe validadora
     $validatorClass = "{$name}Validator";
     if(class_exists($validatorClass)){
       $this->validator = new $validatorClass($this);
@@ -25,10 +25,6 @@ class BaseController extends Controller {
     // Seta o filtro de acordo com a valor passado no construtor do pai que o chamou
     $trace = debug_backtrace();
     $caller = $trace[1]['object'];
-    // print_r(strtolower(str_replace('Controller', '' ,$caller['object']->name)));
-    // exit;
-
-    // FIXME: Verificar sobre a utilização correta dos filtros aqui!
     try{
       $lastFilter = $caller->validator->getFilter();
       $this->validator->prependFilter($lastFilter);
