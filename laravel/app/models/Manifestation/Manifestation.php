@@ -2,7 +2,7 @@
 
 class Manifestation extends Eloquent{
 
-	protected $table = 'Status';
+	protected $table = 'Manifestations';
 	protected $hidden = ['password', 'active'];
 	protected $fillable = [
 		'last_occurrence_id',
