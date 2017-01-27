@@ -7,9 +7,4 @@ Class UnitValidator Extends BaseValidator {
     return ['name'=>'required'];
   }
 
-  public function update(){
-    // $rules = [ 'field' => 'rules' ];
-    // return $this->validate($rules);
-  }
-
 }

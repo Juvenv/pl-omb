@@ -8,13 +8,4 @@ Class ManifestationValidator Extends BaseValidator {
       'description' => 'required'
     ];
   }
-
-  public function update(){
-    // $rules = [ 'field' => 'rules' ];
-    // return $this->validate($rules);
-    return [
-      'description' => 'required'
-    ];
-  }
-
 }

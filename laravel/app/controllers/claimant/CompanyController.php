@@ -2,16 +2,11 @@
 
 class CompanyController extends \BaseController {
 
-	public function store()
-	{
-    $validatedData = $this->validator->validate();
-    $this->model->fill($validatedData);
-    return $this->model;
-	}
-
-	public function destroy($id)
-	{
-		//
+	public function store($data, $claimant) {
+		$validatedData = $this->validator->validate($data);
+		$company = new Company($validatedData);
+		$company->claimant()->associate($claimant);
+		return $company;
 	}
 
 }

@@ -6,14 +6,7 @@ Class StatusValidator Extends BaseValidator {
   public function store(){
     $rules = [ 'name' => 'required|min:5|max:30', 'active' => 'required'];
 
-    return $this->validate($rules);
+    return $rules;
   }
 
-  public function update(){
-    $rules = [
-      'name' => 'required|min:5|max:30',
-      'active' => 'required'
-    ];
-    return $this->validate($rules);
-  }
 }

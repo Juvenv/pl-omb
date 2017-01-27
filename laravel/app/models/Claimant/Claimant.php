@@ -15,15 +15,15 @@ class Claimant extends Eloquent {
     return $this->hasOne('Company');
   }
 
-  public function emails(){
-    return $this->hasMany('Email');
+  public function email(){
+    return $this->hasOne('Email');
   }
 
-  public function telephones(){
-    return $this->hasMany('Telephone');
+  public function telephone(){
+    return $this->hasOne('Telephone');
   }
 
-  public function addresses(){
-    return $this->hasMany('Address');
+  public function address(){
+    return $this->hasOne('Address');
   }
 }

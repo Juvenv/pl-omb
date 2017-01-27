@@ -2,60 +2,31 @@
 
 class ClaimantController extends \BaseController {
 
-  /**
-  * @throws Exception
-  **/
-  public function store(){
-    try {
+  public function store($data) {
+    $validatedData = $this->validator->validate($data['claimant']);
+    $claimant = Claimant::create($validatedData['claimant']);
+    return $claimant;
+  }
 
-      $validatedData = $this->validator->validate();
-      $this->model->fill($validatedData);
+  public function update($claimant, $data){
+    $claimant->fill($data)->update();
+    return $claimant;
+  }
 
-      // NOTE: O uso get do filtro aqui é uma exceção, no geral é desnecessária e pode gerar problemas
-      // Aqui é apenas necessário para prepend de claimant no tipo de pessoa dentro da condição
-      // Já que é algo que não pode ser controlado automaticamente
-      // Use APENAS SE NECESSÁRIO em outro local
-      $prepend = $this->validator->getFilter();
+  /* Verifica a existencia do contribuinte e encaminha para o método correto */
+  public function storeOrUpdate($data) {
+    if(isset($data['individual'])) {
+      $claimant = Individual::where(['cpf' => $data['individual']['cpf']])->first();
+    }
 
-      // Cadastro de tipo de pessoa: Física, Jurídica ou Anônimo
-      if($this->hasRequestData("${prepend}.individual")) {
-        $association ="Individual";
-      } else if($this->hasRequestData("{$prepend}.company")) {
-        $association = "Company";
-      } else {
-        $association = "Anonymous";
-      }
+    if(isset($data['company'])) {
+      $claimant = Company::where(['cnpj' => $data['company']['cnpj']])->first();
+    }
 
-      if($association !== "Anonymous") {
-        $personController = "{$association}Controller";
-        $personController = new $personController('claimant');
-        $this->model = $personController->store($this->model);
-      }
-
-      // Informações de Contato
-      if($association !== "Anonymous") {
-        // Cadastro de Telefone
-        if($this->hasRequestData('telephone')){
-          $telephoneController = new TelephoneController;
-          $telephoneController->store();
-        }
-        // Cadastro de Email
-        if($this->hasRequestData('email')){
-          $emailController = new EmailController;
-          $emailController->store();
-        }
-        // Cadastro de Endereço
-        if($this->hasRequestData('address')){
-          $addressController = new AddressController;
-          $addressController->store();
-        }
-      }
-
-      // Devolve o modelo do contribuinte para que possa ser utilizado no controller da Manifestação
-      return $this->model;
-    } catch (Exception $e) {
-      $this->model->delete();
-      return $this->throwException($e);
+    if($claimant === null){
+      $this->store($data);
+    } else {
+      $this->update($claimant, $data);
     }
   }
 

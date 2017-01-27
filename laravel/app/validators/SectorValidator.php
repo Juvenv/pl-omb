@@ -7,10 +7,4 @@ Class SectorValidator Extends BaseValidator {
     $rules = [ '' => '' ];
     return $rules;
   }
-
-  public function update(){
-    $rules = [ '' => '' ];
-    return $rules;
-  }
-
 }
