@@ -3,8 +3,11 @@ Class UnitValidator Extends BaseValidator {
 
   protected $filter = "unit";
 
+
   public function store(){
-    return ['name'=>'required'];
+    return [
+      'name'=>'required|unique:Units,name',
+    ];
   }
 
 }

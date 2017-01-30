@@ -1,6 +1,8 @@
 <?php
+use Illuminate\Database\Eloquent\SoftDeletingTrait;
 
 class Subject extends Eloquent {
+    use SoftDeletingTrait;
 
 	protected $table = 'Subjects';
   protected $fillable = ['name'];
