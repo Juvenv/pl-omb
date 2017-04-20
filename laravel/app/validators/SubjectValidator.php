@@ -8,9 +8,4 @@ Class SubjectValidator Extends BaseValidator {
     return $rules;
   }
 
-  public function update(){
-    $rules = [ '' => '' ];
-    return $rules;
-  }
-
 }

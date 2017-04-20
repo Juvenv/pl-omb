@@ -1,62 +1,81 @@
-<?php
+<?php // TODO: Necessita Transaction
 
 class ClaimantController extends \BaseController {
 
-  /**
-  * @throws Exception
-  **/
-  public function store(){
-    try {
+    public function store($data) {
+        $validatedData = $this->validator->validate($data);
 
-      $validatedData = $this->validator->validate();
-      $this->model->fill($validatedData);
-
-      // NOTE: O uso get do filtro aqui é uma exceção, no geral é desnecessária e pode gerar problemas
-      // Aqui é apenas necessário para prepend de claimant no tipo de pessoa dentro da condição
-      // Já que é algo que não pode ser controlado automaticamente
-      // Use APENAS SE NECESSÁRIO em outro local
-      $prepend = $this->validator->getFilter();
-
-      // Cadastro de tipo de pessoa: Física, Jurídica ou Anônimo
-      if($this->hasRequestData("${prepend}.individual")) {
-        $association ="Individual";
-      } else if($this->hasRequestData("{$prepend}.company")) {
-        $association = "Company";
-      } else {
-        $association = "Anonymous";
-      }
-
-      if($association !== "Anonymous") {
-        $personController = "{$association}Controller";
-        $personController = new $personController('claimant');
-        $this->model = $personController->store($this->model);
-      }
-
-      // Informações de Contato
-      if($association !== "Anonymous") {
-        // Cadastro de Telefone
-        if($this->hasRequestData('telephone')){
-          $telephoneController = new TelephoneController;
-          $telephoneController->store();
-        }
-        // Cadastro de Email
-        if($this->hasRequestData('email')){
-          $emailController = new EmailController;
-          $emailController->store();
-        }
-        // Cadastro de Endereço
-        if($this->hasRequestData('address')){
-          $addressController = new AddressController;
-          $addressController->store();
-        }
-      }
-
-      // Devolve o modelo do contribuinte para que possa ser utilizado no controller da Manifestação
-      return $this->model;
-    } catch (Exception $e) {
-      $this->model->delete();
-      return $this->throwException($e);
+        // Dados pessoais
+        $claimant = Claimant::create($validatedData);
+        $this->saveOrUpdatePersonType($claimant, $validatedData);
+        $this->saveOrUpdateContact($claimant, $data['contact']);
+        
+        return $claimant;
     }
-  }
 
+    public function update($claimant, $data){
+        $validatedData = $this->validator->validate($data);        
+        $claimant->fill($validatedData)->update();
+        $this->saveOrUpdatePersonType($claimant, $validatedData);
+        $this->saveOrUpdateContact($claimant, $data['contact']);
+        
+        return $claimant;
+    }
+
+    /* Verifica a existencia do contribuinte e encaminha para o método correto */
+    public function storeOrUpdate($data) {
+        $claimant = null;
+        
+        if(isset($data['individual'])) {
+            $claimant = Individual::where(['cpf' => $data['individual']['cpf']])->first();
+        }
+
+        if(isset($data['company'])) {
+            $claimant = Company::where(['cnpj' => $data['company']['cnpj']])->first();
+        }
+
+        if($claimant === null) {
+            $this->store($data);
+        } else {
+            $this->update($claimant, $data);
+        }
+    }
+
+    /* Cria ou atualiza o tipo de pessoa do contribuinte */
+    public function saveOrUpdatePersonType($claimant, $data) {
+        if($data['personType'] == 'individual'){
+            $individual = Individual::firstOrNew(['cpf' => $data['cpf']]);
+            $individual->cpf = $data['cpf'];
+            $individual->claimant()->associate($claimant);
+            $individual->save();
+        } else {
+            $company = Company::firstOrNew(['cnpj' => $data['cnpj']]);
+            $company->cnpj = $data['cnpj'];
+            $company->contact_name = $data['contact_name'];
+            $company->claimant()->associate($claimant);
+            $company->save();
+        }
+    }
+
+    /* Cria ou altera o contato */
+    public function saveOrUpdateContact($claimant, $data) {
+        $answerType = Answer::getAnswerType($data['answer']);
+        if($answerType == 'address') {
+            $address = Address::firstOrNew(['claimant_id' => $claimant->id]);
+            $address->claimant()->associate($claimant);
+            $address->fill($data)->save();
+        }
+
+        if($answerType == 'email') {
+            $email = Email::firstOrNew(['claimant_id' => $claimant->id]);
+            $email->claimant()->associate($claimant);
+            $email->fill($data)->save();
+        }
+
+        if($answerType == 'telephone') {
+            $telephone = Telephone::firstOrNew(['claimant_id' => $claimant->id]);
+            $telephone->claimant()->associate($claimant);
+            $telephone->fill($data)->save();
+        }
+    }
 }

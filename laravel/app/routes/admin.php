@@ -1,6 +1,7 @@
 <?php
 Route::get('/', function(){
-  return View::make('index');
+  (new ManifestationController)->store();
+  // return View::make('index');
 });
 
 Route::get('/manifestation/search', function(){
